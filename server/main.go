@@ -5,11 +5,11 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/harishankarsivaji/Todo_App_Go/server/router"
+	"github.com/harishankarsivaji/Todo_App_Go/server/api/router"
 )
 
 func main() {
-	r := router.Router()
+	r := router.SetupRouter()
 
 	fmt.Println("Starting server on the port 8080...")
 

@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/harishankarsivaji/Todo_App_Go/server/models"
+	"github.com/harishankarsivaji/Todo_App_Go/server/api/models"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"

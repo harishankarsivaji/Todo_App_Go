@@ -2,11 +2,11 @@ package router
 
 import (
 	"github.com/gorilla/mux"
-	"github.com/harishankarsivaji/Todo_App_Go/server/middleware"
+	"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware"
 )
 
-// Router is exported and used in main.go
-func Router() *mux.Router {
+// SetupRouter is exported and used in main.go
+func SetupRouter() *mux.Router {
 
 	router := mux.NewRouter()
 

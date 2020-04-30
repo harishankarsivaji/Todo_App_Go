@@ -4,8 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
+	"os"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/gorilla/mux"
 	"github.com/harishankarsivaji/Todo_App_Go/server/api/models"
@@ -31,6 +33,25 @@ var collection *mongo.Collection
 // create connection with mongo db
 func init() {
 
+	var filename string = "logfile.log"
+	// Create the log file if doesn't exist. And append to it if it already exists.
+	f, err := os.OpenFile(filename, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0644)
+
+	Formatter := new(log.TextFormatter)
+	Formatter.TimestampFormat = "02-01-2006 15:04:05"
+	Formatter.FullTimestamp = true
+	log.SetFormatter(Formatter)
+	// log.SetFormatter(&log.TextFormatter{})
+
+	if err != nil {
+		// Cannot open log file. Logging to stderr
+		fmt.Println(err)
+	} else {
+		log.SetOutput(f)
+	}
+
+	log.SetReportCaller(true)
+
 	// Set client options
 	clientOptions := options.Client().ApplyURI(connectionString)
 
@@ -48,11 +69,11 @@ func init() {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Connected to MongoDB!")
+	log.Info("Connected to MongoDB!")
 
 	collection = client.Database(dbName).Collection(collName)
 
-	fmt.Println("Collection instance created!")
+	log.Info("Collection instance created!")
 }
 
 // GetAllTask get all the task route

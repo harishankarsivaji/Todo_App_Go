@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
-	"log"
 	"net/http"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/harishankarsivaji/Todo_App_Go/server/api/router"
 )
@@ -11,7 +11,9 @@ import (
 func main() {
 	r := router.SetupRouter()
 
-	fmt.Println("Starting server on the port 8080...")
+	const PORT = ":8080"
 
-	log.Fatal(http.ListenAndServe(":8080", r))
+	log.Info("Starting server on port ", PORT)
+
+	log.Fatal(http.ListenAndServe(PORT, r))
 }

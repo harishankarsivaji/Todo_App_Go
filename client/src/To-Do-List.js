@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Card, Header, Form, Input, Icon } from "semantic-ui-react";
+import { Card, Header, Form, Input, Icon, Button } from "semantic-ui-react";
 
-let endpoint = "http://localhost:8080";
+var endpoint = "http://localhost:8080";
 
 class ToDoList extends Component {
   constructor(props) {
@@ -26,7 +26,6 @@ class ToDoList extends Component {
 
   onSubmit = () => {
     let { task } = this.state;
-    // console.log("pRINTING task", this.state.task);
     if (task) {
       axios
         .post(
@@ -98,7 +97,7 @@ class ToDoList extends Component {
           items: []
         });
       }
-      console.log(res);
+      // console.log(res);
     });
   };
 
@@ -110,7 +109,7 @@ class ToDoList extends Component {
         }
       })
       .then(res => {
-        console.log(res);
+        // console.log(res);
         this.getTask();
       });
   };
@@ -123,7 +122,7 @@ class ToDoList extends Component {
         }
       })
       .then(res => {
-        console.log(res);
+        // console.log(res);
         this.getTask();
       });
   };
@@ -140,6 +139,19 @@ class ToDoList extends Component {
         this.getTask();
       });
   };
+
+  deleteAll = () => {
+    axios
+      .delete(endpoint + "/api/deleteAllTask", {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      })
+      .then(res => {
+        this.getTask();
+      });
+  };
+
   render() {
     return (
       <div>
@@ -158,8 +170,15 @@ class ToDoList extends Component {
               fluid
               placeholder="Create Task"
             />
-            {/* <Button >Create Task</Button> */}
           </Form>
+        </div>
+        <div className="row"> 
+          <Button 
+            floated="right"
+            color="red"
+            onClick={() => this.deleteAll()}>
+              Clear All
+          </Button>
         </div>
         <div className="row">
           <Card.Group>{this.state.items}</Card.Group>

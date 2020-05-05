@@ -2,16 +2,12 @@ package middleware
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
-	"os"
 
 	log "github.com/sirupsen/logrus"
 
 	"github.com/gin-gonic/gin"
-	"github.com/gorilla/mux"
 	"github.com/harishankarsivaji/Todo_App_Go/server/api/models"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -35,27 +31,27 @@ var collection *mongo.Collection
 // create connection with mongo db
 func init() {
 
-	func() {
-		var filename string = "logfile.log"
-		// Create the log file if doesn't exist. And append to it if it already exists.
-		file, err := os.OpenFile(filename, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0644)
-		if err != nil {
-			log.Fatal(err)
-		}
+	// func() {
+	// 	var filename string = "logfile.log"
+	// 	// Create the log file if doesn't exist. And append to it if it already exists.
+	// 	file, err := os.OpenFile(filename, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0644)
+	// 	if err != nil {
+	// 		log.Fatal(err)
+	// 	}
 
-		Formatter := new(log.JSONFormatter)
-		Formatter.TimestampFormat = "02-01-2006 15:04:05"
-		log.SetFormatter(Formatter)
+	// Formatter := new(log.JSONFormatter)
+	// Formatter.TimestampFormat = "02-01-2006 15:04:05"
+	// log.SetFormatter(Formatter)
 
-		wrt := io.MultiWriter(os.Stdout, file)
+	// 	wrt := io.MultiWriter(os.Stdout, file)
 
-		log.SetOutput(wrt)
+	// log.SetOutput()
 
-		// Calling method as a field - Logs the func and file path
-		log.SetReportCaller(true)
+	// 	// Calling method as a field - Logs the func and file path
+	// log.SetReportCaller(true)
 
-		log.Info("Logger has been initilized.")
-	}()
+	// 	log.Info("Logger has been initilized.")
+	// }()
 
 	// Set client options
 	clientOptions := options.Client().ApplyURI(connectionString)
@@ -94,8 +90,8 @@ func GetAllTask(c *gin.Context) {
 func CreateTask(c *gin.Context) {
 	c.Header("Context-Type", "application/x-www-form-urlencoded")
 	c.Header("Access-Control-Allow-Origin", "*")
-	c.Header("Access-Control-Allow-Methods", "POST")
-	c.Header("Access-Control-Allow-Headers", "Content-Type")
+	// c.Header("Access-Control-Allow-Methods", "POST")
+	// c.Header("Access-Control-Allow-Headers", "Content-Type")
 
 	var task models.ToDoList
 	c.BindJSON(&task)
@@ -111,13 +107,12 @@ func TaskComplete(c *gin.Context) {
 
 	c.Header("Content-Type", "application/x-www-form-urlencoded")
 	c.Header("Access-Control-Allow-Origin", "*")
-	c.Header("Access-Control-Allow-Methods", "PUT")
-	c.Header("Access-Control-Allow-Headers", "Content-Type")
+	// c.Header("Access-Control-Allow-Methods", "PUT")
+	// c.Header("Access-Control-Allow-Headers", "Content-Type")
 
 	id := c.Params.ByName("id")
-	// params := mux.Vars(r)
+	fmt.Println(id)
 	taskComplete(id)
-	// json.NewEncoder(w).Encode(params["id"])
 	c.JSON(http.StatusOK, gin.H{
 		"status":   http.StatusOK,
 		"response": id,
@@ -125,41 +120,52 @@ func TaskComplete(c *gin.Context) {
 }
 
 // UndoTask undo the complete task route
-func UndoTask(w http.ResponseWriter, r *http.Request) {
+func UndoTask(c *gin.Context) {
 
-	w.Header().Set("Content-Type", "application/x-www-form-urlencoded")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "PUT")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Header("Content-Type", "application/x-www-form-urlencoded")
+	c.Header("Access-Control-Allow-Origin", "*")
+	// c.Header("Access-Control-Allow-Methods", "PUT")
+	// c.Header("Access-Control-Allow-Headers", "Content-Type")
 
-	params := mux.Vars(r)
-	undoTask(params["id"])
-	json.NewEncoder(w).Encode(params["id"])
+	id := c.Params.ByName("id")
+	fmt.Println(id)
+	undoTask(id)
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": id,
+	})
 }
 
 // DeleteTask delete one task route
-func DeleteTask(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "DELETE")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+func DeleteTask(c *gin.Context) {
 
-	// id := c.Params.ByName("id")
-	params := mux.Vars(r)
-	deleteOneTask(params["id"])
-	json.NewEncoder(w).Encode(params["id"])
-	// json.NewEncoder(w).Encode("Task not found")
+	c.Header("Content-Type", "application/x-www-form-urlencoded")
+	c.Header("Access-Control-Allow-Origin", "*")
+	// c.Header("Access-Control-Allow-Methods", "DELETE")
+	// c.Header("Access-Control-Allow-Headers", "Content-Type")
+
+	id := c.Param("id")
+	fmt.Println(id)
+	deleteOneTask(id)
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": id,
+	})
 
 }
 
 // DeleteAllTask delete all tasks route
-func DeleteAllTask(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	count := deleteAllTask()
-	json.NewEncoder(w).Encode(count)
-	// json.NewEncoder(w).Encode("Task not found")
+func DeleteAllTask(c *gin.Context) {
+	c.Header("Content-Type", "application/x-www-form-urlencoded")
+	c.Header("Access-Control-Allow-Origin", "*")
+	// c.Header("Access-Control-Allow-Methods", "DELETE")
+	// c.Header("Access-Control-Allow-Headers", "Content-Type")
 
+	count := deleteAllTask()
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": count,
+	})
 }
 
 // get all task from the DB and return it
@@ -176,7 +182,6 @@ func getAllTask() []primitive.M {
 		if e != nil {
 			log.Fatal(e)
 		}
-		// fmt.Println("cur..>", cur, "result", reflect.TypeOf(result), reflect.TypeOf(result["_id"]))
 		results = append(results, result)
 	}
 
@@ -233,21 +238,21 @@ func deleteOneTask(task string) {
 	fmt.Println(task)
 	id, _ := primitive.ObjectIDFromHex(task)
 	filter := bson.M{"_id": id}
-	d, err := collection.DeleteOne(context.Background(), filter)
+	del, err := collection.DeleteOne(context.Background(), filter)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	log.Info("Deleted Document: ", d.DeletedCount)
+	log.Info("Deleted Document: ", del.DeletedCount)
 }
 
 // delete all the tasks from the DB
 func deleteAllTask() int64 {
-	d, err := collection.DeleteMany(context.Background(), bson.D{{}}, nil)
+	del, err := collection.DeleteMany(context.Background(), bson.D{{}}, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	log.Info("Deleted Document", d.DeletedCount)
-	return d.DeletedCount
+	log.Info("Deleted Document", del.DeletedCount)
+	return del.DeletedCount
 }

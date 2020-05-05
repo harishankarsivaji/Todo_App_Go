@@ -45,17 +45,17 @@ class ToDoList extends Component {
           this.setState({
             task: ""
           });
-          console.log(res);
         });
     }
   };
 
   getTask = () => {
     axios.get(endpoint + "/api/task").then(res => {
-      console.log(res);
-      if (res.data) {
+      // console.log(res.data)
+      var data = res.data.response
+      if (data) {
         this.setState({
-          items: res.data.map(item => {
+          items: data.map(item => {
             let color = "yellow";
 
             if (item.status) {
@@ -98,12 +98,13 @@ class ToDoList extends Component {
           items: []
         });
       }
+      console.log(res);
     });
   };
 
   updateTask = id => {
     axios
-      .put(endpoint + "/api/task/" + id, {
+      .put(endpoint + "/api/taskComplete/" + id, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         }

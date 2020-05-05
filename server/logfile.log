@@ -1,9 +1,63 @@
-{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:71","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.init.0","level":"info","msg":"Connected to MongoDB!","time":"2020-04-30T18:16:24+01:00"}
-{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:75","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.init.0","level":"info","msg":"Collection instance created!","time":"2020-04-30T18:16:24+01:00"}
-{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/main.go:16","func":"main.main","level":"info","msg":"Starting server on port :8080","time":"2020-04-30T18:16:24+01:00"}
-time="2020-04-30T18:17:41+01:00" level=info msg="Connected to MongoDB!" func=github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.init.0 file="/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:71"
-time="2020-04-30T18:17:41+01:00" level=info msg="Collection instance created!" func=github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.init.0 file="/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:75"
-time="2020-04-30T18:17:41+01:00" level=info msg="Starting server on port :8080" func=main.main file="/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/main.go:16"
-time="30-04-2020 18:18:25" level=info msg="Connected to MongoDB!" func=github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.init.0 file="/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:71"
-time="30-04-2020 18:18:25" level=info msg="Collection instance created!" func=github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.init.0 file="/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:75"
-time="30-04-2020 18:18:25" level=info msg="Starting server on port :8080" func=main.main file="/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/main.go:16"
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:71","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.init.0","level":"info","msg":"Connected to MongoDB!","time":"2020-04-30T19:03:23+01:00"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:75","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.init.0","level":"info","msg":"Collection instance created!","time":"2020-04-30T19:03:23+01:00"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/main.go:16","func":"main.main","level":"info","msg":"Starting server on port :8080","time":"2020-04-30T19:03:23+01:00"}
+{"level":"info","msg":"Connected to MongoDB!","time":"2020-05-01T13:08:53+01:00"}
+{"level":"info","msg":"Collection instance created!","time":"2020-05-01T13:08:53+01:00"}
+{"level":"info","msg":"Starting server on port :8080","time":"2020-05-01T13:08:53+01:00"}
+time="01-05-2020 14:05:30" level=info msg="Connected to MongoDB!"
+time="01-05-2020 14:05:30" level=info msg="Collection instance created!"
+time="01-05-2020 14:05:30" level=info msg="Starting server on port :8080"
+
+time="2020-05-01T14:49:42+01:00" level=info msg="Logger has been initilized."
+time="2020-05-01T14:49:42+01:00" level=info msg="Connected to MongoDB!"
+time="2020-05-01T14:49:42+01:00" level=info msg="Collection instance created!"
+time="2020-05-01T14:49:42+01:00" level=info msg="Starting server on port :8080"
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:56","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.init.0.func1","level":"info","msg":"Logger has been initilized.","time":"02-05-2020 15:00:27"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:74","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.init.0","level":"info","msg":"Connected to MongoDB!","time":"02-05-2020 15:00:27"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:78","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.init.0","level":"info","msg":"Collection instance created!","time":"02-05-2020 15:00:27"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/main.go:16","func":"main.main","level":"info","msg":"Starting server on port :8080","time":"02-05-2020 15:00:27"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:56","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.init.0.func1","level":"info","msg":"Logger has been initilized.","time":"02-05-2020 15:05:23"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:74","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.init.0","level":"info","msg":"Connected to MongoDB!","time":"02-05-2020 15:05:23"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:78","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.init.0","level":"info","msg":"Collection instance created!","time":"02-05-2020 15:05:23"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/main.go:16","func":"main.main","level":"info","msg":"Starting server on port :8080","time":"02-05-2020 15:05:23"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:213","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.undoTask","level":"info","msg":"modified count: 1","time":"02-05-2020 15:05:41"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:213","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.undoTask","level":"info","msg":"modified count: 0","time":"02-05-2020 15:05:41"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:213","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.undoTask","level":"info","msg":"modified count: 1","time":"02-05-2020 15:05:42"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:213","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.undoTask","level":"info","msg":"modified count: 0","time":"02-05-2020 15:05:42"}
+{"level":"info","msg":"Logger has been initilized.","time":"02-05-2020 15:05:53"}
+{"level":"info","msg":"Connected to MongoDB!","time":"02-05-2020 15:05:53"}
+{"level":"info","msg":"Collection instance created!","time":"02-05-2020 15:05:53"}
+{"level":"info","msg":"Starting server on port :8080","time":"02-05-2020 15:05:53"}
+{"level":"info","msg":"modified count: 1","time":"02-05-2020 15:06:15"}
+{"level":"info","msg":"modified count: 0","time":"02-05-2020 15:06:15"}
+{"level":"info","msg":"modified count: 1","time":"02-05-2020 15:06:16"}
+{"level":"info","msg":"modified count: 0","time":"02-05-2020 15:06:16"}
+{"level":"info","msg":"Deleted Document1","time":"02-05-2020 15:06:18"}
+{"level":"info","msg":"Deleted Document0","time":"02-05-2020 15:06:18"}
+{"level":"info","msg":"Deleted Document1","time":"02-05-2020 15:06:18"}
+{"level":"info","msg":"Deleted Document0","time":"02-05-2020 15:06:18"}
+{"level":"info","msg":"Deleted Document1","time":"02-05-2020 15:09:27"}
+{"level":"info","msg":"Deleted Document0","time":"02-05-2020 15:09:27"}
+{"level":"info","msg":"Logger has been initilized.","time":"02-05-2020 15:12:28"}
+{"level":"info","msg":"Connected to MongoDB!","time":"02-05-2020 15:12:28"}
+{"level":"info","msg":"Collection instance created!","time":"02-05-2020 15:12:28"}
+{"level":"info","msg":"Starting server on port :8080","time":"02-05-2020 15:12:28"}
+{"level":"info","msg":"modified count: 1","time":"02-05-2020 15:12:34"}
+{"level":"info","msg":"modified count: 0","time":"02-05-2020 15:12:34"}
+{"level":"info","msg":"modified count: 1","time":"02-05-2020 15:12:36"}
+{"level":"info","msg":"modified count: 0","time":"02-05-2020 15:12:36"}
+{"level":"info","msg":"Deleted Document1","time":"02-05-2020 15:12:39"}
+{"level":"info","msg":"Deleted Document0","time":"02-05-2020 15:12:39"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:56","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.init.0.func1","level":"info","msg":"Logger has been initilized.","time":"02-05-2020 15:12:55"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:74","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.init.0","level":"info","msg":"Connected to MongoDB!","time":"02-05-2020 15:12:55"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:78","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.init.0","level":"info","msg":"Collection instance created!","time":"02-05-2020 15:12:55"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/main.go:16","func":"main.main","level":"info","msg":"Starting server on port :8080","time":"02-05-2020 15:12:55"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:199","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.taskComplete","level":"info","msg":"modified count: 0","time":"02-05-2020 15:12:59"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:199","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.taskComplete","level":"info","msg":"modified count: 0","time":"02-05-2020 15:12:59"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:213","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.undoTask","level":"info","msg":"modified count: 1","time":"02-05-2020 15:13:01"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:213","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.undoTask","level":"info","msg":"modified count: 0","time":"02-05-2020 15:13:01"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:213","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.undoTask","level":"info","msg":"modified count: 1","time":"02-05-2020 15:13:03"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:213","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.undoTask","level":"info","msg":"modified count: 0","time":"02-05-2020 15:13:03"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:226","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.deleteOneTask","level":"info","msg":"Deleted Document1","time":"02-05-2020 15:14:36"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:226","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.deleteOneTask","level":"info","msg":"Deleted Document0","time":"02-05-2020 15:14:36"}
+{"file":"/Users/harishankarsivaji/go/src/github.com/harishankarsivaji/Todo_App_Go/server/api/middleware/middleware.go:185","func":"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware.insertOneTask","level":"info","msg":"Inserted a Single Record ObjectID(\"5ead810fb268889ee070e9c6\")","time":"02-05-2020 15:17:51"}

@@ -1,20 +1,23 @@
 package router
 
 import (
-	"github.com/gorilla/mux"
+	// "github.com/gorilla/mux"
+	"github.com/gin-gonic/gin"
 	"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware"
 )
 
 // SetupRouter is exported and used in main.go
-func SetupRouter() *mux.Router {
+func SetupRouter() *gin.Engine {
 
-	router := mux.NewRouter()
+	// router := mux.NewRouter()
+	router := gin.Default()
 
-	router.HandleFunc("/api/task", middleware.GetAllTask).Methods("GET", "OPTIONS")
-	router.HandleFunc("/api/task", middleware.CreateTask).Methods("POST", "OPTIONS")
-	router.HandleFunc("/api/task/{id}", middleware.TaskComplete).Methods("PUT", "OPTIONS")
-	router.HandleFunc("/api/undoTask/{id}", middleware.UndoTask).Methods("PUT", "OPTIONS")
-	router.HandleFunc("/api/deleteTask/{id}", middleware.DeleteTask).Methods("DELETE", "OPTIONS")
-	// router.HandleFunc("/api/deleteAllTask", middleware.DeleteAllTask).Methods("DELETE", "OPTIONS")
+	router.GET("/api/task", middleware.GetAllTask)
+	router.POST("/api/task", middleware.CreateTask)
+	router.PUT("/api/task/{id}", middleware.TaskComplete)
+	router.PUT("/api/undoTask/{id}", middleware.UndoTask)
+	router.DELETE("/api/deleteTask/{id}", middleware.DeleteTask)
+	router.DELETE("/api/deleteAllTask", middleware.DeleteAllTask)
+
 	return router
 }

@@ -135,7 +135,7 @@ class ToDoList extends Component {
         }
       })
       .then(res => {
-        console.log(res);
+        // console.log(res);
         this.getTask();
       });
   };

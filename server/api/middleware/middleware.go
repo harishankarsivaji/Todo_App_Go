@@ -4,11 +4,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 
 	log "github.com/sirupsen/logrus"
 
+	"github.com/gin-gonic/gin"
 	"github.com/gorilla/mux"
 	"github.com/harishankarsivaji/Todo_App_Go/server/api/models"
 
@@ -33,38 +35,39 @@ var collection *mongo.Collection
 // create connection with mongo db
 func init() {
 
-	var filename string = "logfile.log"
-	// Create the log file if doesn't exist. And append to it if it already exists.
-	f, err := os.OpenFile(filename, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0644)
+	func() {
+		var filename string = "logfile.log"
+		// Create the log file if doesn't exist. And append to it if it already exists.
+		file, err := os.OpenFile(filename, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0644)
+		if err != nil {
+			log.Fatal(err)
+		}
 
-	Formatter := new(log.TextFormatter)
-	Formatter.TimestampFormat = "02-01-2006 15:04:05"
-	Formatter.FullTimestamp = true
-	log.SetFormatter(Formatter)
-	// log.SetFormatter(&log.TextFormatter{})
+		Formatter := new(log.JSONFormatter)
+		Formatter.TimestampFormat = "02-01-2006 15:04:05"
+		log.SetFormatter(Formatter)
 
-	if err != nil {
-		// Cannot open log file. Logging to stderr
-		fmt.Println(err)
-	} else {
-		log.SetOutput(f)
-	}
+		wrt := io.MultiWriter(os.Stdout, file)
 
-	log.SetReportCaller(true)
+		log.SetOutput(wrt)
+
+		// Calling method as a field - Logs the func and file path
+		log.SetReportCaller(true)
+
+		log.Info("Logger has been initilized.")
+	}()
 
 	// Set client options
 	clientOptions := options.Client().ApplyURI(connectionString)
 
 	// connect to MongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)
-
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Check the connection
 	err = client.Ping(context.TODO(), nil)
-
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -77,37 +80,48 @@ func init() {
 }
 
 // GetAllTask get all the task route
-func GetAllTask(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
+func GetAllTask(c *gin.Context) {
+	c.Header("Context-Type", "application/x-www-form-urlencoded")
+	c.Header("Access-Control-Allow-Origin", "*")
 	payload := getAllTask()
-	json.NewEncoder(w).Encode(payload)
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": payload,
+	})
 }
 
 // CreateTask create task route
-func CreateTask(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "POST")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+func CreateTask(c *gin.Context) {
+	c.Header("Context-Type", "application/x-www-form-urlencoded")
+	c.Header("Access-Control-Allow-Origin", "*")
+	c.Header("Access-Control-Allow-Methods", "POST")
+	c.Header("Access-Control-Allow-Headers", "Content-Type")
+
 	var task models.ToDoList
-	_ = json.NewDecoder(r.Body).Decode(&task)
-	// fmt.Println(task, r.Body)
+	c.BindJSON(&task)
 	insertOneTask(task)
-	json.NewEncoder(w).Encode(task)
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": task,
+	})
 }
 
 // TaskComplete update task route
-func TaskComplete(w http.ResponseWriter, r *http.Request) {
+func TaskComplete(c *gin.Context) {
 
-	w.Header().Set("Content-Type", "application/x-www-form-urlencoded")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "PUT")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Header("Content-Type", "application/x-www-form-urlencoded")
+	c.Header("Access-Control-Allow-Origin", "*")
+	c.Header("Access-Control-Allow-Methods", "PUT")
+	c.Header("Access-Control-Allow-Headers", "Content-Type")
 
-	params := mux.Vars(r)
-	taskComplete(params["id"])
-	json.NewEncoder(w).Encode(params["id"])
+	id := c.Params.ByName("id")
+	// params := mux.Vars(r)
+	taskComplete(id)
+	// json.NewEncoder(w).Encode(params["id"])
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": id,
+	})
 }
 
 // UndoTask undo the complete task route
@@ -129,6 +143,8 @@ func DeleteTask(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "DELETE")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+	// id := c.Params.ByName("id")
 	params := mux.Vars(r)
 	deleteOneTask(params["id"])
 	json.NewEncoder(w).Encode(params["id"])
@@ -162,7 +178,6 @@ func getAllTask() []primitive.M {
 		}
 		// fmt.Println("cur..>", cur, "result", reflect.TypeOf(result), reflect.TypeOf(result["_id"]))
 		results = append(results, result)
-
 	}
 
 	if err := cur.Err(); err != nil {
@@ -175,13 +190,14 @@ func getAllTask() []primitive.M {
 
 // Insert one task in the DB
 func insertOneTask(task models.ToDoList) {
+	fmt.Println(task)
 	insertResult, err := collection.InsertOne(context.Background(), task)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Inserted a Single Record ", insertResult.InsertedID)
+	log.Info("Inserted a Single Record: ", insertResult.InsertedID)
 }
 
 // task complete method, update task's status to true
@@ -195,7 +211,7 @@ func taskComplete(task string) {
 		log.Fatal(err)
 	}
 
-	fmt.Println("modified count: ", result.ModifiedCount)
+	log.Info("modified count: ", result.ModifiedCount)
 }
 
 // task undo method, update task's status to false
@@ -209,7 +225,7 @@ func undoTask(task string) {
 		log.Fatal(err)
 	}
 
-	fmt.Println("modified count: ", result.ModifiedCount)
+	log.Info("modified count: ", result.ModifiedCount)
 }
 
 // delete one task from the DB, delete by ID
@@ -222,7 +238,7 @@ func deleteOneTask(task string) {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Deleted Document", d.DeletedCount)
+	log.Info("Deleted Document: ", d.DeletedCount)
 }
 
 // delete all the tasks from the DB
@@ -232,6 +248,6 @@ func deleteAllTask() int64 {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Deleted Document", d.DeletedCount)
+	log.Info("Deleted Document", d.DeletedCount)
 	return d.DeletedCount
 }

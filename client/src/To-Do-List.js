@@ -10,7 +10,8 @@ class ToDoList extends Component {
 
     this.state = {
       task: "",
-      items: []
+      items: [],
+      done: ""
     };
   }
 
@@ -50,7 +51,6 @@ class ToDoList extends Component {
 
   getTask = () => {
     axios.get(endpoint + "/api/task").then(res => {
-      // console.log(res.data)
       var data = res.data.response
       if (data) {
         this.setState({
@@ -59,34 +59,38 @@ class ToDoList extends Component {
 
             if (item.status) {
               color = "green";
-            }
+            } 
             return (
               <Card key={item._id} color={color} fluid>
                 <Card.Content>
                   <Card.Header textAlign="left">
-                    <div style={{ wordWrap: "break-word" }}>{item.task}</div>
+                    <div style={{ wordWrap: "break-word", margin: "10px 0px 0px 20px"}}>{item.task}</div>
                   </Card.Header>
 
-                  <Card.Meta textAlign="right">
-                    <Icon
-                      name="check circle"
+                  <Card.Content extra textAlign="right">
+                    <Button icon
+                      labelPosition='right'
                       color="green"
-                      onClick={() => this.updateTask(item._id)}
-                    />
-                    <span style={{ paddingRight: 10 }}>Done</span>
-                    <Icon
-                      name="undo"
+                      onClick={() => this.updateTask(item._id)}>
+                      <Icon name ="check"/>
+                      <span>Done</span>
+                    </Button>
+                    <Button icon
+                      labelPosition='right'
                       color="yellow"
-                      onClick={() => this.undoTask(item._id)}
-                    />
-                    <span style={{ paddingRight: 10 }}>Undo</span>
-                    <Icon
-                      name="delete"
+                      onClick={() => this.undoTask(item._id)}>
+                      <Icon name ="undo"/>
+                      <span>Undo</span>
+                    </Button>
+
+                    <Button icon
+                      labelPosition='right'
                       color="red"
-                      onClick={() => this.deleteTask(item._id)}
-                    />
-                    <span style={{ paddingRight: 10 }}>Delete</span>
-                  </Card.Meta>
+                      onClick={() => this.deleteTask(item._id)}>
+                      <Icon name ="delete"/>
+                      <span>Delete</span>
+                    </Button>
+                  </Card.Content>
                 </Card.Content>
               </Card>
             );
@@ -109,7 +113,6 @@ class ToDoList extends Component {
         }
       })
       .then(res => {
-        // console.log(res);
         this.getTask();
       });
   };
@@ -122,7 +125,6 @@ class ToDoList extends Component {
         }
       })
       .then(res => {
-        // console.log(res);
         this.getTask();
       });
   };
@@ -135,7 +137,6 @@ class ToDoList extends Component {
         }
       })
       .then(res => {
-        // console.log(res);
         this.getTask();
       });
   };
@@ -156,7 +157,7 @@ class ToDoList extends Component {
     return (
       <div>
         <div className="row">
-          <Header className="header" as="h2">
+          <Header className="header" as="h1" >
             TO DO LIST
           </Header>
         </div>

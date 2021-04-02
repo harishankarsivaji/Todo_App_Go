@@ -1,0 +1,29 @@
+version: '3'
+volumes:
+  volume1:
+services:
+  nginx:
+    image: nginx:stable-alpine
+    read_only: true
+    restart: unless-stopped
+    # cpu_shares: 1024
+    # cpu_quota: 50000
+    #mem_limit: 4096m
+    privileged: false
+    #memswap_limit: 4096m
+    environment:
+      - "TZ=Etc/UTC"
+    ports:
+      - "443:443"
+      # - "80:80"
+    tmpfs:
+      - /var/cache/nginx
+      - /run
+    volumes:
+      #- ./conf/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./conf/nginx/conf:/etc/nginx:ro
+      - /var/log/nginx:/var/log/nginx:rw
+      - ./server:/usr/local/nginx/server:ro
+      - ./client:/usr/local/nginx/webapp:ro
+      - ./generic/splash:/usr/local/nginx/splash:ro
+      - ./generic/errors:/usr/local/nginx/errors:ro

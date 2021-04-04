@@ -1,29 +1,32 @@
-version: '3'
-volumes:
-  volume1:
+version: '2'
+
 services:
   nginx:
     image: nginx:stable-alpine
     read_only: true
     restart: unless-stopped
-    # cpu_shares: 1024
-    # cpu_quota: 50000
-    #mem_limit: 4096m
     privileged: false
-    #memswap_limit: 4096m
-    environment:
+    environment
       - "TZ=Etc/UTC"
     ports:
       - "443:443"
-      # - "80:80"
-    tmpfs:
-      - /var/cache/nginx
-      - /run
+      - "80:80"
+    links:
+      -
     volumes:
-      #- ./conf/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./conf/nginx/conf:/etc/nginx:ro
       - /var/log/nginx:/var/log/nginx:rw
       - ./server:/usr/local/nginx/server:ro
       - ./client:/usr/local/nginx/webapp:ro
       - ./generic/splash:/usr/local/nginx/splash:ro
       - ./generic/errors:/usr/local/nginx/errors:ro
+
+  go-web-app:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: .
+    environment:
+      - MONGODB_URL = "mongodb://localhost:27017"
+      - DB_NAME = "todoApp"
+      - COLLECTION_NAME = "todolist"

@@ -55,13 +55,11 @@ func init() {
 	// Set client options
 	clientOptions := options.Client().ApplyURI(connectionString)
 
-	// connect to MongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// Check the connection
 	err = client.Ping(context.TODO(), nil)
 	if err != nil {
 		log.Fatal(err)
@@ -74,7 +72,6 @@ func init() {
 	log.Info("Collection instance created!")
 }
 
-// GetAllTask get all the task route
 func GetAllTask(c *gin.Context) {
 	c.Header("Context-Type", "application/x-www-form-urlencoded")
 	c.Header("Access-Control-Allow-Origin", "*")
@@ -85,7 +82,6 @@ func GetAllTask(c *gin.Context) {
 	})
 }
 
-// CreateTask create task route
 func CreateTask(c *gin.Context) {
 	c.Header("Context-Type", "application/x-www-form-urlencoded")
 	c.Header("Access-Control-Allow-Origin", "*")
@@ -101,7 +97,6 @@ func CreateTask(c *gin.Context) {
 	})
 }
 
-// TaskComplete update task route
 func TaskComplete(c *gin.Context) {
 
 	c.Header("Content-Type", "application/x-www-form-urlencoded")
@@ -117,7 +112,6 @@ func TaskComplete(c *gin.Context) {
 	})
 }
 
-// UndoTask undo the complete task route
 func UndoTask(c *gin.Context) {
 
 	c.Header("Content-Type", "application/x-www-form-urlencoded")
@@ -133,7 +127,6 @@ func UndoTask(c *gin.Context) {
 	})
 }
 
-// DeleteTask delete one task route
 func DeleteTask(c *gin.Context) {
 
 	c.Header("Content-Type", "application/x-www-form-urlencoded")
@@ -150,7 +143,6 @@ func DeleteTask(c *gin.Context) {
 
 }
 
-// DeleteAllTask delete all tasks route
 func DeleteAllTask(c *gin.Context) {
 	c.Header("Content-Type", "application/x-www-form-urlencoded")
 	c.Header("Access-Control-Allow-Origin", "*")
@@ -162,7 +154,6 @@ func DeleteAllTask(c *gin.Context) {
 	})
 }
 
-// get all task from the DB and return it
 func getAllTask() []primitive.M {
 	cur, err := collection.Find(context.Background(), bson.D{{}})
 	if err != nil {
@@ -187,7 +178,6 @@ func getAllTask() []primitive.M {
 	return results
 }
 
-// Insert one task in the DB
 func insertOneTask(task models.ToDoList) {
 	insertResult, err := collection.InsertOne(context.Background(), task)
 
@@ -198,7 +188,6 @@ func insertOneTask(task models.ToDoList) {
 	log.Info("Inserted a Single Record: ", insertResult.InsertedID)
 }
 
-// task complete method, update task's status to true
 func taskComplete(task string) {
 	id, _ := primitive.ObjectIDFromHex(task)
 	filter := bson.M{"_id": id}
@@ -211,7 +200,6 @@ func taskComplete(task string) {
 	log.Info("Modified count: ", result.ModifiedCount)
 }
 
-// task undo method, update task's status to false
 func undoTask(task string) {
 	id, _ := primitive.ObjectIDFromHex(task)
 	filter := bson.M{"_id": id}
@@ -224,7 +212,6 @@ func undoTask(task string) {
 	log.Info("Modified count: ", result.ModifiedCount)
 }
 
-// delete one task from the DB, delete by ID
 func deleteOneTask(task string) {
 	id, _ := primitive.ObjectIDFromHex(task)
 	filter := bson.M{"_id": id}
@@ -236,7 +223,6 @@ func deleteOneTask(task string) {
 	log.Info("Deleted Document: ", del.DeletedCount)
 }
 
-// delete all the tasks from the DB
 func deleteAllTask() int64 {
 	del, err := collection.DeleteMany(context.Background(), bson.D{{}}, nil)
 	if err != nil {

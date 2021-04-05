@@ -17,9 +17,9 @@ services:
       - ./conf/nginx/conf:/etc/nginx:ro
       - /var/log/nginx:/var/log/nginx:rw
       - ./server:/usr/local/nginx/server:ro
-      - ./client:/usr/local/nginx/webapp:ro
-      - ./generic/splash:/usr/local/nginx/splash:ro
-      - ./generic/errors:/usr/local/nginx/errors:ro
+      - ./client/build:/usr/local/nginx/webapp:ro
+#      - ./generic/splash:/usr/local/nginx/splash:ro
+#      - ./generic/errors:/usr/local/nginx/errors:ro
 
   go-web-app:
     restart: always

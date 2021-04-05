@@ -18,9 +18,9 @@ A simple React application which consumes the REST API's to create, update and d
 
 - [x] Backend API
 - [x] React front end 
-- [] Unit Testing 
-- [] Dockerize the API 
-- [] Continous Integration like CircleCI / Travis
-- [] Deploy in Heroku 
-- [] JWT - User Login
+- [ ] Unit Testing 
+- [ ] Dockerize the API 
+- [ ] Continous Integration like CircleCI / Travis
+- [ ] Deploy in Heroku 
+- [ ] JWT - User Login
 

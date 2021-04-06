@@ -1,13 +1,13 @@
-FROM golang:alpine AS build
-RUN apk --no-cache add make git
-WORKDIR /go/src/app
-COPY server .
-RUN go mod init webserver
-RUN GOOS=linux go build -ldflags="-s -w" -o ./bin/web-app ./server
+FROM golang:alpine AS builder
+COPY server /build
+WORKDIR /build
+RUN go mod download
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o . .
 
-FROM alpine:3.13
+FROM alpine:latest
 RUN apk --no-cache add ca-certificates
-WORKDIR /usr/bin
-COPY --from=build /go/src/app/bin /go/bin
-EXPOSE 80
-ENTRYPOINT /go/bin/web-app --port 80
+WORKDIR /app
+COPY --from=builder /build .
+
+EXPOSE 9090
+ENTRYPOINT /app --port 9090

@@ -1,32 +1,46 @@
 version: '2'
 
+volumes:
+  mongo:
+
 services:
   nginx:
-    image: nginx:stable-alpine
+    image: "nginx:stable-alpine"
     read_only: true
     restart: unless-stopped
     privileged: false
-    environment
+    environment:
       - "TZ=Etc/UTC"
     ports:
-      - "443:443"
-      - "80:80"
-    links:
-      -
+      - "8080:8080"
     volumes:
-      - ./conf/nginx/conf:/etc/nginx:ro
+      - ./conf/nginx:/etc/nginx:ro
       - /var/log/nginx:/var/log/nginx:rw
-      - ./server:/usr/local/nginx/server:ro
-      - ./client/build:/usr/local/nginx/webapp:ro
-#      - ./generic/splash:/usr/local/nginx/splash:ro
-#      - ./generic/errors:/usr/local/nginx/errors:ro
+      - ./client/build:/usr/share/nginx/html:rw
+      - ./generic/errors:/usr/local/nginx/errors:ro
 
   go-web-app:
     restart: always
     build:
       dockerfile: Dockerfile
       context: .
-    environment:
-      - MONGODB_URL = "mongodb://localhost:27017"
-      - DB_NAME = "todoApp"
-      - COLLECTION_NAME = "todolist"
+    container_name: "todo_api"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: "mongo"
+    container_name: "my_mongodb"
+    restart: unless-stopped
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME =
+#      - MONGO_INITDB_ROOT_PASSWORD =
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo 127.0.0.1:27017/test --quiet
+      interval: 30s
+      timeout: 60s
+      retries: 3

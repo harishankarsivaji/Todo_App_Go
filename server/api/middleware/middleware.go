@@ -49,7 +49,7 @@ func init() {
 		// 	// Calling method as a field - Logs the func and file path
 		// log.SetReportCaller(true)
 
-		log.Info("Logger has been initilized.")
+		log.Info("Logger has been initialized.")
 	}()
 
 	// Set client options
@@ -174,7 +174,7 @@ func getAllTask() []primitive.M {
 		log.Fatal(err)
 	}
 
-	cur.Close(context.Background())
+	_ = cur.Close(context.Background())
 	return results
 }
 

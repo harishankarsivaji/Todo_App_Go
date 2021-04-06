@@ -1,2 +1,2 @@
-docker-compose -f mvs_compose.yml up -d
+docker-compose -f docker-compose.yml up -d
 docker ps -a

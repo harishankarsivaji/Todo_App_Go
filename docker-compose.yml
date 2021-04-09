@@ -4,27 +4,37 @@ volumes:
   mongo:
 
 services:
-  nginx:
-    image: "nginx:stable-alpine"
-    read_only: true
-    restart: unless-stopped
-    privileged: false
-    environment:
-      - "TZ=Etc/UTC"
+#  nginx:
+#    image: "nginx:stable-alpine"
+#    read_only: true
+#    restart: unless-stopped
+#    privileged: false
+#    environment:
+#      - "TZ=Etc/UTC"
+#    ports:
+#      - "8080:8080"
+#    volumes:
+#      - ./conf/nginx:/etc/nginx:ro
+#      - /var/log/nginx:/var/log/nginx:rw
+#      - ./client/build:/usr/share/nginx/html:rw
+#      - ./generic/errors:/usr/local/nginx/errors:ro
+
+  webapp:
+    build:
+      context: ./client
+      target: release
+    container_name: "React_webapp"
     ports:
-      - "8080:8080"
-    volumes:
-      - ./conf/nginx:/etc/nginx:ro
-      - /var/log/nginx:/var/log/nginx:rw
-      - ./client/build:/usr/share/nginx/html:rw
-      - ./generic/errors:/usr/local/nginx/errors:ro
+    - 8080:8080
 
   go-web-app:
-    restart: always
+    restart: unless-stopped
     build:
-      dockerfile: Dockerfile
-      context: .
+      context: ./server
+      target: release
     container_name: "todo_api"
+    ports:
+    - 9090:9090
     depends_on:
       - mongodb
 
@@ -36,11 +46,6 @@ services:
 #      - MONGO_INITDB_ROOT_USERNAME =
 #      - MONGO_INITDB_ROOT_PASSWORD =
     ports:
-      - "27017:27017"
+      - 27017:27017
     volumes:
       - mongo:/data/db
-    healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongo 127.0.0.1:27017/test --quiet
-      interval: 30s
-      timeout: 60s
-      retries: 3

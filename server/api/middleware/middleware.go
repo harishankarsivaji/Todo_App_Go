@@ -3,6 +3,7 @@ package middleware
 import (
 	"context"
 	"net/http"
+	"os"
 
 	log "github.com/sirupsen/logrus"
 
@@ -15,19 +16,14 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// DB connection string
-const connectionString = "mongodb://localhost:27017"
+var connectionString = os.Getenv("DB_CONNECTION")
 
-// Database Name
-const dbName = "todoApp"
+var dbName = os.Getenv("DB_NAME")
 
-// Collection name
 const collName = "todolist"
 
-// collection object/instance
 var collection *mongo.Collection
 
-// create connection with mongo db
 func init() {
 
 	func() {
@@ -52,7 +48,6 @@ func init() {
 		log.Info("Logger has been initialized.")
 	}()
 
-	// Set client options
 	clientOptions := options.Client().ApplyURI(connectionString)
 
 	client, err := mongo.Connect(context.TODO(), clientOptions)

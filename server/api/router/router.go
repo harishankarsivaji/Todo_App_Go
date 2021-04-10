@@ -5,7 +5,6 @@ import (
 	"github.com/harishankarsivaji/Todo_App_Go/server/api/middleware"
 )
 
-// SetupRouter is exported and used in main.go
 func SetupRouter() *gin.Engine {
 
 	router := gin.Default()

@@ -1,29 +1,14 @@
-version: '2'
+version: '3'
 
 volumes:
   mongo:
 
 services:
-#  nginx:
-#    image: "nginx:stable-alpine"
-#    read_only: true
-#    restart: unless-stopped
-#    privileged: false
-#    environment:
-#      - "TZ=Etc/UTC"
-#    ports:
-#      - "8080:8080"
-#    volumes:
-#      - ./conf/nginx:/etc/nginx:ro
-#      - /var/log/nginx:/var/log/nginx:rw
-#      - ./client/build:/usr/share/nginx/html:rw
-#      - ./generic/errors:/usr/local/nginx/errors:ro
-
-  webapp:
+  nginx:
     build:
       context: ./client
       target: release
-    container_name: "React_webapp"
+    container_name: "react_webapp"
     ports:
     - 8080:8080
 

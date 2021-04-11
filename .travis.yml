@@ -8,10 +8,10 @@ services:
 
 before_install:
   - docker-compose -f docker-compose.yml up -d
-
-#script:
-#  - docker run todo_app_go go test -v -covermode=count -coverprofile=coverage.out
+  - docker ps -a
 
 after_success:
-  - docker login -u $DOCKER_ID -p $DOCKER_PASSWORD
-  - docker push todo_app_go
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push todo_app_go_nginx:latest
+  - docker push todo_app_go_go-web-app:latest
+  - docker push mongo:latest

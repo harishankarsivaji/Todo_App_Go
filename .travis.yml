@@ -8,10 +8,11 @@ services:
 
 before_install:
   - docker-compose -f docker-compose.yml up -d
-  - docker ps -a
 
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push todo_app_go_nginx:latest
-  - docker push todo_app_go_go-web-app:latest
-  - docker push mongo:latest
+  - docker push harishs92/todo_list_webapp:latest
+  - docker push harishs92/todo_list_go_api:latest
+  - docker push harishs92/mongo:latest
+  - docker-compose -f docker-compose.yml stop -t 0
+  - docker-compose -f docker-compose.yml rm -f

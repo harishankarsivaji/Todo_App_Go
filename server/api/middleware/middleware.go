@@ -2,10 +2,8 @@ package middleware
 
 import (
 	"context"
-	"net/http"
-	"os"
-
 	log "github.com/sirupsen/logrus"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/harishankarsivaji/Todo_App_Go/server/api/models"
@@ -16,11 +14,11 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var connectionString = os.Getenv("DB_CONNECTION")
+const connectionString = "mongodb://127.0.0.1:27017/todoApp"
 
-var dbName = os.Getenv("DB_NAME")
+const dbName = "todoApp"
 
-const collName = "todolist"
+const collName = "todoList"
 
 var collection *mongo.Collection
 

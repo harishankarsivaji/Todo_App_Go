@@ -13,7 +13,7 @@ func main() {
 	r := router.SetupRouter()
 	r.Use(middleware.CORS)
 
-	const PORT = ":8080"
+	const PORT = ":9090"
 
 	log.Info("Starting server on port ", PORT)
 

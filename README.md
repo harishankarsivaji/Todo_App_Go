@@ -1,5 +1,7 @@
 # Todo_App_Go
 
+![Travis (.com)](https://img.shields.io/travis/com/harishankarsivaji/Todo_App_Go)
+
 Full stack CRUD application using Go and React
 
 ## Backend API architecture
@@ -19,8 +21,9 @@ A simple React application which consumes the REST API's to create, update and d
 - [x] Backend API
 - [x] React front end 
 - [ ] Unit Testing 
-- [ ] Dockerize the API 
-- [ ] Continous Integration like CircleCI / Travis
-- [ ] Deploy in Heroku 
+- [x] Dockerize the API 
+- [x] Continous Integration like CircleCI / Travis CI
+- [ ] Mongodb Atlas cluster connection string
+- [ ] Deploy in AWS (EBS, ECS)
 - [ ] JWT - User Login
 

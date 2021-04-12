@@ -5,21 +5,26 @@ volumes:
 
 services:
   nginx:
+    image: "harishs92/todo_list_webapp"
+    container_name: "react_webapp"
+    restart: unless-stopped
     build:
       context: ./client
       target: release
-    container_name: "react_webapp"
     ports:
-    - 8080:8080
+      - 8080:8080
 
   go-web-app:
+    image: "harishs92/todo_list_go_api"
+    container_name: "todo_api"
     restart: unless-stopped
     build:
       context: ./server
       target: release
-    container_name: "todo_api"
+    env_file:
+      - ./server/.env
     ports:
-    - 9090:9090
+      - 9090:9090
     depends_on:
       - mongodb
 
@@ -27,9 +32,6 @@ services:
     image: "mongo"
     container_name: "my_mongodb"
     restart: unless-stopped
-#    environment:
-#      - MONGO_INITDB_ROOT_USERNAME =
-#      - MONGO_INITDB_ROOT_PASSWORD =
     ports:
       - 27017:27017
     volumes:

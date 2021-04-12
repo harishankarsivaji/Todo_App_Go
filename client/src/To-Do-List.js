@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Card, Header, Form, Input, Icon, Button } from "semantic-ui-react";
 
-const endpoint = "http://localhost:9090";
+let endpoint = {window:process.env["REACT_ENDPOINT"]};
+
+console.log(endpoint);
 
 class ToDoList extends Component {
   constructor(props) {

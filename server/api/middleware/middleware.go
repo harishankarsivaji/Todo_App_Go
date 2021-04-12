@@ -4,6 +4,7 @@ import (
 	"context"
 	log "github.com/sirupsen/logrus"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/harishankarsivaji/Todo_App_Go/server/api/models"
@@ -14,11 +15,11 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-const connectionString = "mongodb://127.0.0.1:27017/todoApp"
+var connectionString = os.Getenv("MONGODB_CONN_STRING")
 
-const dbName = "todoApp"
+var dbName = os.Getenv("DB_NAME")
 
-const collName = "todoList"
+var collName = os.Getenv("COLLECTION_NAME")
 
 var collection *mongo.Collection
 

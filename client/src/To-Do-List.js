@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Card, Header, Form, Input, Icon, Button } from "semantic-ui-react";
 
-var endpoint = "http://localhost:8080";
+let endpoint = {window:process.env["REACT_ENDPOINT"]};
+
+console.log(endpoint);
 
 class ToDoList extends Component {
   constructor(props) {
@@ -51,7 +53,7 @@ class ToDoList extends Component {
 
   getTask = () => {
     axios.get(endpoint + "/api/task").then(res => {
-      var data = res.data.response
+      const data = res.data.response;
       if (data) {
         this.setState({
           items: data.map(item => {

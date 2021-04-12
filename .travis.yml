@@ -1,0 +1,17 @@
+sudo: required
+language: go
+go:
+  - tip
+
+services:
+  - docker
+
+before_install:
+  - docker-compose -f docker-compose.yml up -d
+
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push harishs92/todo_list_webapp:latest
+  - docker push harishs92/todo_list_go_api:latest
+  - docker-compose -f docker-compose.yml stop -t 0
+  - docker-compose -f docker-compose.yml rm -f

@@ -1,0 +1,8 @@
+Dockerfile
+.git
+.idea
+.cache
+.gitignore
+.env
+.env.development
+.env.production

@@ -1,0 +1,38 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "todolist-api",
+      "image": "harishs92/todo_list_go_api",
+      "environment": [
+        {
+          "name": "Container",
+          "value": "PHP"
+        }
+      ],
+      "essential": true,
+      "memory": 500,
+      "portMappings": [
+        {
+          "hostPort": 9090,
+          "containerPort": 9090
+        }
+      ]
+    },
+    {
+      "name": "nginx-webapp",
+      "image": "harishs92/todo_list_webapp",
+      "links": [
+        "todolist-api"
+      ],
+      "essential": false,
+      "memory": 500,
+      "portMappings": [
+        {
+          "hostPort": 8080,
+          "containerPort": 8080
+        }
+      ]
+    }
+  ]
+}

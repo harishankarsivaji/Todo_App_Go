@@ -1,7 +1,9 @@
 sudo: required
 language: go
 go:
-  - tip
+  - 1.11.x
+  - 1.16.x
+  - release
 
 services:
   - docker
@@ -15,3 +17,15 @@ after_success:
   - docker push harishs92/todo_list_go_api:latest
   - docker-compose -f docker-compose.yml stop -t 0
   - docker-compose -f docker-compose.yml rm -f
+
+deploy:
+  provider: elasticbeanstalk
+  region: eu-west-1
+  app: docker-todolist
+  env: Dockertodolist-env
+  bucket_name: elasticbeanstalk-eu-west-1-903335734147
+  bucket_path: docker-todolist
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

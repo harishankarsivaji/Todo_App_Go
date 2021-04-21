@@ -6,3 +6,4 @@ Dockerfile
 .env
 .env.development
 .env.production
+*.md

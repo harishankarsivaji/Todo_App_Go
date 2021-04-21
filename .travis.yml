@@ -3,7 +3,6 @@ language: go
 go:
   - 1.11.x
   - 1.16.x
-  - release
 
 services:
   - docker
@@ -15,8 +14,6 @@ after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push harishs92/todo_list_webapp:latest
   - docker push harishs92/todo_list_go_api:latest
-  - docker-compose -f docker-compose.yml stop -t 0
-  - docker-compose -f docker-compose.yml rm -f
 
 deploy:
   provider: elasticbeanstalk
